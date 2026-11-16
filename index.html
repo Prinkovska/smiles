@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Фото на згадку — ЗДО №45, група «Смайлики»</title>
+  <meta name="theme-color" content="#f3f1fb" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15132a" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Змінити тему">🌙</button>
+
+  <main class="wrap">
+    <!-- ===== ФОРМА ===== -->
+    <section id="formScreen">
+      <header class="hero">
+        <span class="dot dot-1"></span><span class="dot dot-2"></span><span class="dot dot-3"></span>
+        <p class="hero-kicker" id="subtitle"></p>
+        <div class="collage" aria-hidden="true">
+          <figure class="polaroid p-main">
+            <img src="images/hero-girl.webp" alt="" width="640" height="760" fetchpriority="high">
+            <figcaption>фотосесія ❄</figcaption>
+          </figure>
+          <figure class="polaroid p-small">
+            <img src="images/boy.webp" alt="" width="420" height="420">
+            <figcaption>2027 ✨</figcaption>
+          </figure>
+          <span class="flake f1">❄</span><span class="flake f2">❄</span><span class="flake f3">✦</span>
+        </div>
+        <h1 class="hero-title">
+          <span class="script" id="title"></span>
+        </h1>
+        <div class="stickers">
+          <span class="sticker s-pink">магніти</span>
+          <span class="sticker s-yellow">горнятка</span>
+          <span class="sticker s-green">календарі 2027</span>
+          <span class="sticker s-outline">пазли</span>
+        </div>
+        <p class="hero-note">Оберіть товари з фото вашої дитини. Вибір має збігатися з відміткою на паперовому зразку.</p>
+      </header>
+
+      <form id="orderForm" novalidate>
+        <div class="card">
+          <div class="step"><span class="step-num">1</span><h2>Дитина</h2></div>
+          <label class="field">
+            <span class="field-label">Прізвище та ім'я дитини</span>
+            <input type="text" id="childName" autocomplete="off" placeholder="Наприклад: Іваненко Марія" maxlength="80">
+          </label>
+          <p class="error" id="errName" hidden>Вкажіть прізвище та ім'я дитини</p>
+        </div>
+
+        <div class="card">
+          <div class="step"><span class="step-num">2</span><h2>Товари</h2></div>
+          <p class="hint">Кожну позицію можна замовити кілька разів — кнопками «+» і «−».</p>
+          <ul class="products" id="productList"></ul>
+          <p class="hint center">Склад наборів не змінюється</p>
+          <p class="error" id="errItems" hidden>Оберіть хоча б один товар</p>
+        </div>
+
+        <figure class="photo-banner">
+          <img src="images/camera-wreath.webp" alt="" width="900" height="520" loading="lazy">
+          <figcaption>
+            <b>Якість фотолабораторії 📸</b>
+            <span>Зразки надруковані на принтері. Оригінальні фото будуть зроблені у фотолабораторії найвищої якості.</span>
+          </figcaption>
+        </figure>
+
+        <div class="card">
+          <div class="step"><span class="step-num">3</span><h2>Спосіб оплати</h2></div>
+          <div class="pay-options" role="radiogroup">
+            <label class="pay-option">
+              <input type="radio" name="payment" value="cash">
+              <span class="pay-box"><span class="pay-icon">💵</span><span>Готівкою</span></span>
+            </label>
+            <label class="pay-option">
+              <input type="radio" name="payment" value="card">
+              <span class="pay-box"><span class="pay-icon">💳</span><span>На карту</span></span>
+            </label>
+          </div>
+          <p class="error" id="errPay" hidden>Оберіть спосіб оплати</p>
+
+          <div class="pay-info cash-info" id="cashInfo" hidden>
+            <p class="big">Будь ласка, приносьте гроші вихователям <b>без здачі</b> 🙏</p>
+          </div>
+
+          <div class="pay-info card-info" id="cardInfo" hidden>
+            <p>Гроші можна скинути в батьківську касу.</p>
+            <a class="btn btn-mono" id="monoLink" target="_blank" rel="noopener">Поповнити банку Monobank →</a>
+            <div class="card-number">
+              <span id="cardNumber"></span>
+              <button type="button" class="btn btn-ghost btn-sm" id="copyCard">Скопіювати</button>
+            </div>
+            <p class="soft">(Якщо можна, просимо додати 10 грн на комісію за зняття готівки з Monobank. Дякуємо!)</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="step"><span class="step-num">4</span><h2>E-mail <span class="optional">необов'язково</span></h2></div>
+          <label class="field">
+            <span class="field-label">Пошта для підтвердження замовлення</span>
+            <input type="email" id="email" autocomplete="email" inputmode="email" placeholder="name@gmail.com">
+          </label>
+          <p class="error" id="errEmail" hidden>Перевірте адресу пошти</p>
+          <p class="bonus" id="emailBonus"></p>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== ПІДТВЕРДЖЕННЯ ===== -->
+    <section id="doneScreen" hidden>
+      <div class="card done">
+        <div class="done-photo"><img src="images/camera-retro.webp" alt="" width="520" height="520" loading="lazy"><span>🎉</span></div>
+        <h2 class="done-title">Дякуємо! Замовлення прийнято</h2>
+        <p class="hint center" id="doneMailNote"></p>
+        <pre class="order-text" id="doneText"></pre>
+        <div class="done-actions">
+          <button type="button" class="btn btn-primary" id="copyOrder">📋 Скопіювати</button>
+          <a class="btn btn-tg" id="tgShare" target="_blank" rel="noopener">✈️ Надіслати в Телеграм</a>
+        </div>
+        <div class="pay-info card-info" id="donePayCard" hidden></div>
+        <div class="pay-info cash-info" id="donePayCash" hidden>
+          <p class="big">Приносьте гроші вихователям <b>без здачі</b> 🙏</p>
+        </div>
+        <button type="button" class="btn btn-link" id="editOrder">Змінити замовлення</button>
+        <p class="demo-note" id="demoNote" hidden>Демо-режим: таблицю ще не підключено, дані нікуди не надіслано.</p>
+      </div>
+    </section>
+    <p class="credits">Фото для оформлення: <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash</a></p>
+  </main>
+
+  <!-- Нижня панель із сумою -->
+  <div class="totalbar" id="totalBar">
+    <div class="totalbar-inner">
+      <div>
+        <div class="total-label">Разом</div>
+        <div class="total-sum"><span id="totalSum">0</span> грн</div>
+      </div>
+      <button type="button" class="btn btn-primary" id="continueBtn">Продовжити</button>
+    </div>
+  </div>
+
+  <!-- Pop-up підтвердження -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h2 id="modalTitle">Перевірте замовлення</h2>
+      <p class="modal-child" id="modalChild"></p>
+      <ul class="summary" id="modalList"></ul>
+      <div class="summary-total"><span>До сплати</span><b><span id="modalTotal"></span> грн</b></div>
+      <p class="modal-pay" id="modalPay"></p>
+      <label class="confirm">
+        <input type="checkbox" id="confirmCheck">
+        <span>Я підтверджую свій вибір, він збігається з відміткою на паперовому зразку для вихователів</span>
+      </label>
+      <p class="error" id="errSend" hidden></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" data-close>← Назад</button>
+        <button type="button" class="btn btn-primary" id="sendBtn" disabled>Відправити</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
