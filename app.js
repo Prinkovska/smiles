@@ -77,14 +77,6 @@
     });
     const t = total();
     $("totalSum").textContent = t;
-    const bonus = $("emailBonus");
-    if (t >= C.emailBonusFrom) {
-      bonus.textContent = "🎁 Ваше замовлення від " + C.emailBonusFrom + " грн — вкажіть e-mail, і ми надішлемо електронний варіант фото.";
-      bonus.classList.add("active");
-    } else {
-      bonus.textContent = "При замовленні від " + C.emailBonusFrom + " грн електронний варіант фото надішлемо на e-mail.";
-      bonus.classList.remove("active");
-    }
   }
 
   // ---------- Оплата ----------
@@ -93,11 +85,7 @@
     return r ? r.value : "";
   }
   document.querySelectorAll('input[name="payment"]').forEach((r) =>
-    r.addEventListener("change", () => {
-      $("errPay").hidden = true;
-      $("cashInfo").hidden = payment() !== "cash";
-      $("cardInfo").hidden = payment() !== "card";
-    })
+    r.addEventListener("change", () => { $("errPay").hidden = true; })
   );
   $("copyCard").addEventListener("click", () => copy(C.cardNumber.replace(/\s/g, ""), "Номер картки скопійовано"));
 
@@ -151,7 +139,23 @@
     document.body.style.overflow = "";
   }
   $("modal").addEventListener("click", (e) => { if (e.target.hasAttribute("data-close")) closeModal(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("modal").hidden && !sending) closeModal(); });
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    if (!$("payModal").hidden) closePay();
+    else if (!$("modal").hidden && !sending) closeModal();
+  });
+
+  // ---------- Pop-up з оплатою ----------
+  function openPay() {
+    $("payModal").hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+  function closePay() {
+    $("payModal").hidden = true;
+    document.body.style.overflow = "";
+  }
+  $("payModal").addEventListener("click", (e) => { if (e.target.hasAttribute("data-close-pay")) closePay(); });
+  $("showPay").addEventListener("click", openPay);
   $("confirmCheck").addEventListener("change", () => { $("sendBtn").disabled = !$("confirmCheck").checked; });
 
   // ---------- Відправка ----------
@@ -221,16 +225,11 @@
       : "Збережіть замовлення: скопіюйте його або надішліть собі в Телеграм.";
     $("tgShare").href = "https://t.me/share/url?url=" + encodeURIComponent(payload.orderText);
     const isCard = payment() === "card";
-    $("donePayCash").hidden = isCard;
-    $("donePayCard").hidden = !isCard;
-    if (isCard) {
-      $("donePayCard").innerHTML = $("cardInfo").innerHTML;
-      $("donePayCard").querySelector("#copyCard").removeAttribute("id");
-      $("donePayCard").querySelector("button").addEventListener("click", () =>
-        copy(C.cardNumber.replace(/\s/g, ""), "Номер картки скопійовано"));
-      $("donePayCard").querySelectorAll("[id]").forEach((el) => el.removeAttribute("id"));
-    }
+    $("payCash").hidden = isCard;
+    $("payCard").hidden = !isCard;
+    $("paySum").textContent = payload.total;
     window.scrollTo({ top: 0 });
+    openPay();
   }
 
   $("copyOrder").addEventListener("click", () => copy($("doneText").textContent, "Замовлення скопійовано"));

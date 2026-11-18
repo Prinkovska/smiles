@@ -13,9 +13,6 @@ window.CONFIG = {
   monobankJarUrl: "https://send.monobank.ua/jar/9jxk1v9aa3",
   cardNumber: "0000 0000 0000 0000",                          // TODO: номер картки банки
 
-  // Електронний варіант фото на e-mail від цієї суми
-  emailBonusFrom: 600,
-
   // Товари: id — латиницею, без пробілів (стає назвою стовпця в таблиці не обов'язково)
   products: [
     { id: "photo10x15", name: "Фото 10×15",          price: 110, icon: "🖼️" },

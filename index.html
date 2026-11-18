@@ -58,6 +58,7 @@
           <p class="hint">Кожну позицію можна замовити кілька разів — кнопками «+» і «−».</p>
           <ul class="products" id="productList"></ul>
           <p class="hint center">Склад наборів не змінюється</p>
+          <p class="info-note">💌 При замовленні на суму від 600 грн електронний варіант фото вишлемо на e-mail</p>
           <p class="error" id="errItems" hidden>Оберіть хоча б один товар</p>
         </div>
 
@@ -82,20 +83,7 @@
             </label>
           </div>
           <p class="error" id="errPay" hidden>Оберіть спосіб оплати</p>
-
-          <div class="pay-info cash-info" id="cashInfo" hidden>
-            <p class="big">Будь ласка, приносьте гроші вихователям <b>без здачі</b> 🙏</p>
-          </div>
-
-          <div class="pay-info card-info" id="cardInfo" hidden>
-            <p>Гроші можна скинути в батьківську касу.</p>
-            <a class="btn btn-mono" id="monoLink" target="_blank" rel="noopener">Поповнити банку Monobank →</a>
-            <div class="card-number">
-              <span id="cardNumber"></span>
-              <button type="button" class="btn btn-ghost btn-sm" id="copyCard">Скопіювати</button>
-            </div>
-            <p class="soft">(Якщо можна, просимо додати 10 грн на комісію за зняття готівки з Monobank. Дякуємо!)</p>
-          </div>
+          <p class="hint pay-hint">Як оплатити, підкажемо після відправки замовлення.</p>
         </div>
 
         <div class="card">
@@ -105,7 +93,6 @@
             <input type="email" id="email" autocomplete="email" inputmode="email" placeholder="name@gmail.com">
           </label>
           <p class="error" id="errEmail" hidden>Перевірте адресу пошти</p>
-          <p class="bonus" id="emailBonus"></p>
         </div>
       </form>
     </section>
@@ -121,10 +108,7 @@
           <button type="button" class="btn btn-primary" id="copyOrder">📋 Скопіювати</button>
           <a class="btn btn-tg" id="tgShare" target="_blank" rel="noopener">✈️ Надіслати в Телеграм</a>
         </div>
-        <div class="pay-info card-info" id="donePayCard" hidden></div>
-        <div class="pay-info cash-info" id="donePayCash" hidden>
-          <p class="big">Приносьте гроші вихователям <b>без здачі</b> 🙏</p>
-        </div>
+        <button type="button" class="btn btn-ghost" id="showPay">💳 Як оплатити</button>
         <button type="button" class="btn btn-link" id="editOrder">Змінити замовлення</button>
         <p class="demo-note" id="demoNote" hidden>Демо-режим: таблицю ще не підключено, дані нікуди не надіслано.</p>
       </div>
@@ -161,6 +145,32 @@
         <button type="button" class="btn btn-ghost" data-close>← Назад</button>
         <button type="button" class="btn btn-primary" id="sendBtn" disabled>Відправити</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Pop-up з оплатою (після відправки) -->
+  <div class="modal" id="payModal" hidden>
+    <div class="modal-backdrop" data-close-pay></div>
+    <div class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="payTitle">
+      <h2 id="payTitle">Оплата</h2>
+      <p class="modal-child">До сплати: <b class="pay-sum"><span id="paySum"></span> грн</b></p>
+
+      <div class="pay-info card-info" id="payCard" hidden>
+        <p class="pay-jar">Батьківська каса</p>
+        <a class="btn btn-mono" id="monoLink" target="_blank" rel="noopener">Поповнити банку Monobank</a>
+        <p class="pay-or">або переказом на картку банки:</p>
+        <div class="card-number">
+          <span id="cardNumber"></span>
+          <button type="button" class="btn btn-ghost btn-sm" id="copyCard">Скопіювати</button>
+        </div>
+        <p class="soft">(Якщо можна, просимо додати 10 грн на комісію за зняття готівки з Monobank. Дякуємо!)</p>
+      </div>
+
+      <div class="pay-info cash-info" id="payCash" hidden>
+        <p class="big">Будь ласка, приносьте гроші вихователям <b>без здачі</b> 🙏</p>
+      </div>
+
+      <button type="button" class="btn btn-primary btn-wide" data-close-pay>Зрозуміло</button>
     </div>
   </div>
 

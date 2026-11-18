@@ -245,14 +245,22 @@ input.invalid { border-color: var(--error); }
 .card-number {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
   background: var(--surface); border-radius: 14px; padding: 8px 8px 8px 14px; margin: 10px 0;
-  font-weight: 800; font-size: 17px; letter-spacing: .5px;
+  font-weight: 800; font-size: 16px; letter-spacing: .3px;
 }
+.card-number span { white-space: nowrap; }
 .soft { font-size: 13px; color: var(--muted); }
 
-.bonus { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
-.bonus.active {
-  color: var(--text); background: var(--surface-2); border-radius: 14px; padding: 10px 12px; font-weight: 700;
+.info-note {
+  margin: 12px 0 0; padding: 12px 14px; border-radius: 16px;
+  background: var(--surface-2); font-size: 14px; font-weight: 700; line-height: 1.4;
 }
+.pay-hint { margin: 10px 0 0; text-align: center; }
+
+/* Pop-up оплати */
+.pay-sum { color: var(--primary); font-size: 20px; }
+.pay-jar { font-weight: 900; font-size: 18px; text-align: center; }
+.pay-or { font-size: 14px; color: var(--muted); text-align: center; margin: 12px 0 0 !important; }
+.btn-wide { width: 100%; margin-top: 16px; }
 
 /* ---------- Кнопки ---------- */
 .btn {
@@ -264,7 +272,7 @@ input.invalid { border-color: var(--error); }
 .btn-primary:disabled { opacity: .4; box-shadow: none; cursor: not-allowed; }
 .btn-ghost { background: var(--surface-2); color: var(--text); }
 .btn-sm { padding: 8px 14px; font-size: 14px; }
-.btn-mono { background: #000; color: #fff; width: 100%; }
+.btn-mono { background: #000; color: #fff; width: 100%; white-space: nowrap; }
 .btn-tg { background: #2aabee; color: #fff; }
 .btn-link { background: none; color: var(--primary); text-decoration: underline; padding: 10px; }
 
