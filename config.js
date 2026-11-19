@@ -7,7 +7,7 @@ window.CONFIG = {
   subtitle: "ЗДО №45 · група «Смайлики»",
 
   // URL веб-застосунку Google Apps Script (поки порожньо — сторінка працює в демо-режимі)
-  scriptUrl: "",
+  scriptUrl: "https://script.google.com/macros/s/AKfycbwuksY0djqnSihQB4hDx-nABX0tZtKTgTslWKYmY6v8NEakCgKT0CRjKFitPq88-hH-Nw/exec",
 
   // Оплата на карту
   monobankJarUrl: "https://send.monobank.ua/jar/9jxk1v9aa3",
