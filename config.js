@@ -11,7 +11,7 @@ window.CONFIG = {
 
   // Оплата на карту
   monobankJarUrl: "https://send.monobank.ua/jar/9jxk1v9aa3",
-  cardNumber: "0000 0000 0000 0000",                          // TODO: номер картки банки
+  cardNumber: "4874 1000 3274 3463",
 
   // Товари: id — латиницею, без пробілів (стає назвою стовпця в таблиці не обов'язково)
   products: [
